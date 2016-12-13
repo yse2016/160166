@@ -1,0 +1,4 @@
+hoge,A,1
+hage,B,2
+age,C,3
+sage,D,4
