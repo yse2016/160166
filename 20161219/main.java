@@ -10,7 +10,7 @@ public class main{
 		JLabel label3 = new JLabel("Aloha!");
 		JButton button3 = new JButton("push!!");
 		JLabel label4 = new JLabel("ALOHA");
-		JButton button4 = new JButton("pUuuuuuuuush!!!");
+		JButton button4 = new JButton("PUuuuuuuuush!!!");
 		frame.getContentPane().setLayout(new FlowLayout());
 		frame.getContentPane().add(button);
 		frame.getContentPane().add(label);
