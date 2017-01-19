@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>CanvasTest</title>
+</head>
+<body>
+<canvas id="canvas" width="500" height="500"></canvas>
+<script>
+	var canvas=document.getElementById('canvas');
+	var ctx=canvas.getContext('2d');
+	ctx.fillStyle="rgba(0,255,0,0.1)";
+	var x=200;
+	var y=200;
+	ctx.fillRect(0,0,60,60);
+	ctx.fillRect(140,140,50,50);
+	ctx.strokeRect(50,50,100,100);
+	ctx.clearRect(25,25,10,10);
+
+	ctx.beginPath();
+
+	ctx.moveTo(150+y,50+x);
+	ctx.lineTo(50+y,50+x);
+	ctx.lineTo(100+y,150+x);
+	ctx.closePath();
+	ctx.stroke();
+
+	ctx.moveTo(50+y,50+x);
+	ctx.lineTo(50+y,150+x);
+	ctx.lineTo(0+y,100+x);
+	ctx.fill();
+
+	ctx.moveTo(50+y,150+x);
+	ctx.lineTo(150+y,150+x);
+	ctx.lineTo(100+y,200+x);
+	ctx.fill();
+
+	ctx.moveTo(150+y,50+x);
+	ctx.lineTo(150+y,150+x);
+	ctx.lineTo(200+y,100+x);
+	ctx.fill();
+
+	ctx.moveTo(150+y,50+x);
+	ctx.lineTo(50+y,50+x);
+	ctx.lineTo(100+y,0+x);
+	ctx.fill();
+
+
+	ctx.beginPath();
+	ctx.arc(250,50,50,Math.PI*0.5,0,false);
+	ctx.fill();
+	ctx.beginPath();
+	ctx.arc(255,55,50,0,Math.PI*0.5,0,true);
+	ctx.fill();
+
+	bezieCurveTo(10,200,100,300,500,500);
+
+</script>
+</body>
+</html>
