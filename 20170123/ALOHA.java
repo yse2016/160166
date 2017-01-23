@@ -10,12 +10,16 @@ public class ALOHA {
 		pa= new java.util.Scanner( System.in ).nextLine();
 		w.setpa(pa);
 		w.main();
+
+		String ppap= w.sayPPAP();
+		System.out.println("oh.."+ppap);
 	}
 }
 
 class Write{
 	String p;
 	String pa;
+	String ppa;
 	public void setp( String n ){
 		this.p = n;
 	}
@@ -29,11 +33,15 @@ class Write{
 			BufferedWriter bw=new BufferedWriter(fw);
 			PrintWriter pw=new PrintWriter(bw);
 			pw.println(p+pa);
-		pw.close();
+			ppa=p+pa;
+			pw.close();
 
 		}catch (IOException e) {
 			System.out.println("ERROR");
 			e.printStackTrace();
 		}
+	}
+	public String sayPPAP(){
+		return this.ppa;
 	}
 }
