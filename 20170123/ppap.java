@@ -52,13 +52,11 @@ class TextEditorMan implements ActionListener{
 
 
 		frame.setVisible(true);
-
-	}
-	public void actionPerformed(ActionEvent ae){
+}
+public void actionPerformed(ActionEvent ae){
 		String cmd = ae.getActionCommand();
 		if (cmd.equals("open")) {
 				String textFileName = "PPAP.txt";
-				
 			try{
 				fr = new FileReader(textFileName);
 				br = new BufferedReader(fr);
