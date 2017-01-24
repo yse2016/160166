@@ -1,0 +1,6 @@
+Do you like ppap?
+
+How To Use
+PPAPボタンでシャッフル表示
+下部テキストエリアに入力
+SAVEボタンで保存先の選択
