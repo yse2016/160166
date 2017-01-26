@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>cleateJS</title>
+</head>
+<body>
+<h1>clate js</h1>
+<hr>
+<canvas id="myCanvas" width="500" height="400"></canvas>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>
+window.addEventListener("load",init);
+	function init() {
+		var i=1;
+		var stage=new createjs.Stage("myCanvas");
+
+		var shape = new createjs.Shape();
+		shape.graphics.beginFill("#0000ff");
+		shape.graphics.drawRoundRect(0,0,50,50,10);
+		stage.addChild(shape);
+		createjs.Ticker.addEventListener("tick",function(){
+		createjs.Ticker.timingMode = createjs.Ticker.RAF;
+			shape.x +=i;
+			if (shape.x>450) {
+				i -=2;
+			}else if (shape.x<0) {
+				i +=2;
+			}
+		stage.update();
+		});
+
+	}
+
+</script>
+</body>
+</html>
