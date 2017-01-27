@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>createjs</title>
+</head>
+<body>
+<canvas id="myCanvas" width="500" height="500"></canvas>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>
+	window.addEventListener('load',init);
+	function init() {
+		var stage=new createjs.Stage("myCanvas");
+		var shape=new createjs.Shape();
+		var s=20;
+		var x=0;
+		var y=0;
+		shape.graphics.beginFill("#0000ff");
+		shape.graphics.drawRect(0+x,50+y-y,100,50);
+		shape.graphics.drawRect(35+x,50+y,30,100);
+		var bmp = new createjs.Bitmap("mario.png");
+		stage.addChild(bmp);
+		bmp.scaleX=0.2;
+		bmp.scaleY=0.2;
+		stage.addChild(shape);
+		createjs.Ticker.addEventListener("tick",handleTick);
+		createjs.Ticker.timingMode = createjs.Ticker.RAF;
+		function handleTick() {
+			stage.update();
+			y +=1;
+			if (shape.x<500) {
+			shape.x +=s;
+			shape.y +=y;
+			bmp.x +=s;
+			bmp.y +=y;
+			}
+			if (shape.x>=200||shape.x<=0) {
+				s = -s;
+				y = -y;
+			shape.y -=y;
+			}
+			if (shape.y>500) {
+				shape.y=-150;
+				bmp.y=-150;
+			}
+		}
+	}
+</script>
+</body>
+</html>
