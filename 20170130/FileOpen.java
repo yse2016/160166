@@ -26,6 +26,8 @@ class TextReaderman implements ActionListener{
 		FileInputStream fis;
 		InputStreamReader isr;
 		BufferedReader br;
+	FileWriter fw;
+	PrintWriter pw;
 		Random rnd = new Random();
 
 		List<String> list = new ArrayList<String>();
@@ -37,15 +39,19 @@ class TextReaderman implements ActionListener{
 
 		fileName = new JTextField("ALOHA",20);
 		btnOpen=new JButton("OPEN");
+		btnSave=new JButton("SAVE");
 		textArea=new JTextArea(10,30);
 		scrollPane=new JScrollPane(textArea);
 
 		fieldpanel = new JPanel();
 		fieldpanel.add(fileName);
 		fieldpanel.add(btnOpen);
+		fieldpanel.add(btnSave);
 
 		btnOpen.setActionCommand("open");
 		btnOpen.addActionListener(this);
+		btnSave.setActionCommand("save");
+		btnSave.addActionListener(this);
 
 		Container con = frame.getContentPane();
 		con.setLayout(new GridLayout(2, 1));
@@ -53,6 +59,7 @@ class TextReaderman implements ActionListener{
 		con.add(scrollPane);
 
 		fieldpanel.add(btnOpen);
+		fieldpanel.add(btnSave);
 
 
 		frame.setVisible(true);
@@ -74,13 +81,40 @@ class TextReaderman implements ActionListener{
 
 					System.out.println( list.get(ran));
 					System.out.println( list.get(ran2));
-					textArea.append(list.get(ran)+'\n');
-					textArea.append(list.get(ran2)+'\n');
+					fileName.setText(list.get(ran)+' '+list.get(ran2));
 			}catch (IOException e) {
 				System.out.println("ERROR");
 				e.printStackTrace();
 			}
+		}else if (cmd.equals("save")) {
+			String textFileName = fileName.getText();
 
+			JFileChooser fc=new JFileChooser();
+			fc.setCurrentDirectory(new File("."));
+			int ret=fc.showSaveDialog(frame);
+			if(ret == JFileChooser.APPROVE_OPTION) {
+					File file = fc.getSelectedFile();
+					textFileName = file.getAbsolutePath();
+					fileName.setText(textFileName);
+				}
+			try{
+				fw=new FileWriter(textFileName);
+				pw=new PrintWriter(fw);
+				String data=textArea.getText();
+				pw.println(data);
+
+			}catch (IOException e) {
+				System.out.println("ERROR");
+				e.printStackTrace();
+			} finally {
+				try{
+					fw.close();
+					pw.close();
+				}catch (IOException e) {
+					System.out.println("ERROR");
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }
