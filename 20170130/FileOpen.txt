@@ -1,0 +1,9 @@
+File inFile = new File("words.txt");
+FileInputStream fis = new FileInputStream(inFile);
+InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+BufferedReader br = new BufferedReader(isr);
+
+############################################################
+
+BufferedReader b_reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+
