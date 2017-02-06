@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>createjs</title>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="350"></canvas>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>
+	window.addEventListener('load',init);
+	function init() {
+		var stage=new createjs.Stage("myCanvas");
+		var obj=new createjs.Shape();
+		var jiki=new createjs.Shape();
+		var x=0;
+		var y=0;
+		var s=10;
+		var xs=s;
+		var ys=s;
+		var bmp = new createjs.Bitmap("GAME.png");
+
+var maru = new createjs.Shape();
+maru.graphics.beginFill("rime").drawCircle(0, 0, 40);
+stage.addChild(maru);
+//maru.addEventListener("click", handleCircleClick);
+//function handleCircleClick(event) {
+//    alert("一時停止中");
+//}
+
+window.addEventListener("keydown", handleKeydown);
+
+function handleKeydown(event){
+  // キーコード
+    var keyCode = event.keyCode;
+    console.log("押されたキーのコード : " + keyCode);
+    if (keyCode==32) {
+    	alert("一時停止中");
+    }
+}
+
+		obj.graphics.beginFill("#0000ff");
+		obj.graphics.drawRect(0,0,100,100);
+
+		jiki.graphics.beginFill("DarkRed");
+		jiki.graphics.drawCircle(0, 0, 20);
+		obj.x = 250;
+    	obj.y = Math.floor( Math.random() * 250 ) ;
+    	maru.y = 100;
+    	maru.x = 20+Math.floor( Math.random() * 550 ) ;;
+
+		stage.addChild(obj);
+		stage.addChild(jiki);
+		createjs.Ticker.addEventListener("tick",handleTick);
+		createjs.Ticker.timingMode = createjs.Ticker.RAF;
+		function handleTick() {
+			stage.update();
+			var mx = stage.mouseX;
+    		var my = stage.mouseY;
+    		jiki.x = mx;
+    		jiki.y = my;
+
+    		maru.y+=s/4;
+    		s+=0.001
+			if (maru.y>=350) {
+				maru.y=-50;
+				maru.x=mx+Math.floor( Math.random() * 200 )-Math.floor( Math.random() * 200 ) ;
+			}
+			obj.x +=xs;
+			if (obj.x>=500||obj.x<=0) {
+				xs = -xs;
+				x=obj.x;
+			}else{
+				xs *= 1.0001;
+			}
+			obj.y +=ys;
+			if (obj.y>=250||obj.y<=0) {
+				ys = -ys;
+				y=obj.y;
+			}else{
+				ys *= 1.0001;
+			}
+
+			var point = obj.globalToLocal(stage.mouseX, stage.mouseY);
+			var isHit = obj.hitTest(point.x, point.y);
+			if(isHit == true){
+				stage.addChild(bmp);
+         //         maru.graphics.clear();
+		//maru.graphics.beginFill("blue").drawCircle(100, 100, 20);
+			}else{
+          //        maru.graphics.clear();
+		//maru.graphics.beginFill("skyblue").drawCircle(100, 100, 20);
+			}
+			var point2 = maru.globalToLocal(stage.mouseX, stage.mouseY);
+			var isHit2 = maru.hitTest(point2.x, point2.y);
+			if(isHit2 == true){
+				stage.addChild(bmp);
+			}
+		}
+	}
+</script>
+</body>
+</html>
