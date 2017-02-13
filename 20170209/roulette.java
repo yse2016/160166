@@ -5,10 +5,10 @@ import java.awt.event.*;
 import java.io.*;
 public class roulette {
 	public static void main(String[] args) {
-		rouletteMan tr=new rouletteMan();
+		RouletteMan tr=new RouletteMan();
 	}
 }
-class rouletteMan implements ActionListener{
+class RouletteMan implements ActionListener{
 	JFrame frame;
 	JPanel fieldpanel;
 	JTextField fileName;
@@ -44,7 +44,7 @@ class rouletteMan implements ActionListener{
 	PrintWriter pw;
     JFileChooser filechooser = new JFileChooser();
 
-	public rouletteMan(){
+	public RouletteMan(){
 		frame = new JFrame("rouletteMachine");
 		frame.setLocation(400, 400);
 		frame.setSize(400, 200);

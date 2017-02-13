@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>createjs</title>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="350"></canvas>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>
+	window.addEventListener('load',init);
+	function init() {
+		var stage=new createjs.Stage("myCanvas");
+		var s=1;
+		var xs=s;
+		var ys=2/s;
+		var muki=0;
+		var score=0;
+		var bmp = new createjs.Bitmap("GAMEGAME.png");
+
+		var obj=new createjs.Shape();
+		obj.graphics.beginFill("#0000ff");
+		obj.graphics.drawRect(0,0,10,10);
+
+
+		var itaList = [];
+      	for (var i = 0; i < 20; i++) {
+	        var ita = new createjs.Shape();
+	        stage.addChild(ita);
+	        ita.x +=i*3;
+	        ita.y =320;
+	        itaList[i] = ita;
+	    }
+
+		obj.x = 250;
+    	obj.y = 0 ;
+		stage.addChild(obj);
+
+
+window.addEventListener("keydown", handleKeydown);
+
+function handleKeydown(event){
+  // キーコード
+    var keyCode = event.keyCode;
+    console.log("押されたキーのコード : " + keyCode);
+    if (keyCode==32) {
+    	alert("リセット");
+    	obj.y=1;
+    	obj.x=200;
+    	xs=s;
+		ys=2/s;
+    	stage.removeChild(bmp);
+
+    }
+      if (keyCode == 39) {
+	    // 右
+		for (var i = 0; i < 20; i++) {
+		    itaList[i].x +=10;
+		}
+	  }
+	  if (keyCode == 37) {
+	    // 左
+	    for (var i = 0; i < 20; i++) {
+		    itaList[i].x -=10;
+		}  
+	  }
+
+	  if (keyCode == 38) {
+	    // 上
+	  }
+	  if (keyCode == 40) {
+	    // 下
+	  }
+}
+
+		createjs.Ticker.addEventListener("tick",handleTick);
+		createjs.Ticker.timingMode = createjs.Ticker.RAF;
+		function handleTick() {
+			stage.update();
+
+			obj.x +=xs;
+			if (obj.x>=600||obj.x<=0) {
+				xs = -xs;
+				x=obj.x;
+				muki +=1;
+				score +=1;
+			}else{
+				xs *= 1.0001;
+			}
+			obj.y +=ys;
+			if (obj.y>=350||obj.y<=0) {
+				ys = -ys;
+				y=obj.y;
+			}else{
+				ys *= 1.0001;
+			}
+
+			if (obj.y>=350) {
+				stage.addChild(bmp);
+				alert("score:"+score+'\n'+"OKを押した後スペースキーでリセット");
+				score =0;
+			}
+
+			for (var i = 0; i < itaList.length; i++) {
+		          var ita = itaList[i];
+		          var point = obj.localToLocal(0, 0, ita);
+		          var isHit = ita.hitTest(point.x, point.y);
+		        if (isHit == true) {
+		            ita.graphics.clear()
+		                    .beginFill("DarkRed")
+		                    .drawRect(0, 0, 3, 10);
+		            ys =-ys;
+		            if (i<4){
+		             	if (muki%2==0) {
+		             		xs =-xs;
+		             		muki +=1;
+		             	}
+		            }
+		            if (i>16) {
+		             	if (muki%2==1) {
+		             		xs =-xs;
+		             		muki +=1;
+		             	}
+		            }
+		            
+		        } else {
+		            ita.graphics.clear()
+		                    .beginFill("green")
+		                    .drawRect(0, 0, 3, 10);
+	        	}
+       		}
+		}
+	}
+</script>
+</body>
+</html>
