@@ -35,7 +35,7 @@ class SlotMan implements ActionListener{
 			int ranC2=8;
 			int ranC3=9;
 
-	int i;
+	int[] dataint;
 	JButton btnOpen;
 	JButton btnSave;
 	FileReader fr;
@@ -163,7 +163,6 @@ class SlotMan implements ActionListener{
 			if(ret == JFileChooser.APPROVE_OPTION) {
 					File file = fc.getSelectedFile();
 					textFileName = file.getAbsolutePath();
-					fileName.setText(textFileName);
 				}
 			try{
 				fr = new FileReader(textFileName);
@@ -171,12 +170,29 @@ class SlotMan implements ActionListener{
 
 				String data;
 				while ((data=br.readLine())!=null) {
-					fileName.setText(data);
-				 i= Integer.parseInt(data);
-				 coin =i;
-					System.out.println(data+"data");
+					System.out.println(data+":data");
+					data=data.replace("O","0");
+					data=data.replace("l","1");
+					data=data.replace("z","2");
+					data=data.replace("E","3");
+					data=data.replace("Z","5");
+					data=data.replace("k","4");
+					data=data.replace("b","6");
+					data=data.replace("T","7");
+					data=data.replace("R","8");
+					data=data.replace("Q","9");
+					String[] savedata=data.split(":");
+					int dataint1= Integer.parseInt(savedata[0]);
+					int dataint2= Integer.parseInt(savedata[1]);
+					int dataint3= Integer.parseInt(savedata[2]);
+					if (dataint1%3==0&&dataint2%5==0&&dataint3%7==0) {
+						if (dataint1/3==dataint2/5&&dataint2/5==dataint3/7) {
+						coin =dataint1/3;
+						System.out.println("OK");
+						}else{System.out.println("ERROR");}
+					}else{System.out.println("ERROR");}
+				System.out.println(dataint1/3+"&"+dataint2/5+"&"+dataint3/7+":int");
 				}
-				System.out.println(i+"int");
 			}catch (IOException e) {
 				System.out.println("ERROR");
 				e.printStackTrace();
@@ -194,18 +210,35 @@ class SlotMan implements ActionListener{
 			try{
 				fw=new FileWriter(textFileName);
 				pw=new PrintWriter(fw);
-				String data= String.valueOf(coin);
-				pw.println(data);
+				String[] data = new String[3];
+				data[0]= String.valueOf(coin*3);
+				data[1]= String.valueOf(coin*5);
+				data[2]= String.valueOf(coin*7);
+	for (int i=0;i<3 ;i++ ) {
+				data[i]=data[i].replace("0","O");
+				data[i]=data[i].replace("1","l");
+				data[i]=data[i].replace("2","z");
+				data[i]=data[i].replace("3","E");
+				data[i]=data[i].replace("4","k");
+				data[i]=data[i].replace("5","Z");
+				data[i]=data[i].replace("6","b");
+				data[i]=data[i].replace("7","T");
+				data[i]=data[i].replace("8","R");
+				data[i]=data[i].replace("9","Q");
+				System.out.println(data[i]);
+	}
+
+				pw.println(data[0]+":"+data[1]+":"+data[2]);
 
 			}catch (IOException e) {
-				System.out.println("ERROR");
+				System.out.println("ERROR1");
 				e.printStackTrace();
 			} finally {
 				try{
 					fw.close();
 					pw.close();
 				}catch (IOException e) {
-					System.out.println("ERROR");
+					System.out.println("ERROR2");
 					e.printStackTrace();
 				}
 			}
