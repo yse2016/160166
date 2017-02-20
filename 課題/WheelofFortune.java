@@ -258,7 +258,9 @@ class RouletteMan implements ActionListener{
 				}
 			}
 		}else if (cmd.equals("BET")) {
-			if (bet==0) {
+			if (coin==0) {
+				textArea.setText("Empty coin");
+			}else if (bet==0) {
 				textArea.setText("SELECT BET");
 			}else {
 				coin -=1;
